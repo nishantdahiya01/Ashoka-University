@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Record Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Student Record Result</h1>
+</header>
+
+<div class="result" id="result"></div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const mobile = urlParams.get('mobile');
+
+    const resultDiv = document.getElementById('result');
+    if (name && mobile) {
+        resultDiv.innerHTML = `<strong>Name:</strong> ${name}<br><strong>Mobile:</strong> ${mobile}`;
+    } else {
+        resultDiv.innerHTML = "Student not found.";
+    }
+</script>
+
+</body>
+</html>
