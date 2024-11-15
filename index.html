@@ -20,10 +20,6 @@
         section {
             margin-top: 20px;
         }
-        img {
-            width: 100px;
-            height: auto;
-        }
         footer {
             margin-top: 20px;
             text-align: center;
@@ -46,8 +42,15 @@
 <section>
     <h2>Record Management</h2>
     <form id="student-form">
-        <label for="student-id">Student ID:</label>
-        <input type="text" id="student-id" name="student-id" required><br><br>
+        <label for="search-type">Search by:</label>
+        <select id="search-type">
+            <option value="id">Student ID</option>
+            <option value="mobile">Mobile Number</option>
+        </select><br><br>
+        
+        <label for="search-value">Enter Value:</label>
+        <input type="text" id="search-value" name="search-value" required><br><br>
+        
         <input type="submit" value="Submit">
     </form>
     <div class="result" id="result"></div>
@@ -59,25 +62,32 @@
 
 <script>
     const students = {
-        1: { name: "Amit", mobile: "123-456-7890" },
-        2: { name: "Sumit", mobile: "234-567-8901" },
-        3: { name: "Chirag", mobile: "345-678-9012" },
+        1: { name: "Nishant", mobile: "123-456-7890" },
+        2: { name: "Baby", mobile: "234-567-8901" },
+        3: { name: "Jivesh", mobile: "345-678-9012" },
         4: { name: "Ritu", mobile: "456-789-0123" },
         5: { name: "Nisha", mobile: "567-890-1234" },
         6: { name: "Sikender", mobile: "678-901-2345" },
-        7: { name: "varun", mobile: "678-901-2345" }
+        7: { name: "Ennu", mobile: "789-012-3456" }
     };
 
     document.getElementById('student-form').addEventListener('submit', function(event) {
         event.preventDefault();
-        const studentId = document.getElementById('student-id').value;
+        const searchType = document.getElementById('search-type').value;
+        const searchValue = document.getElementById('search-value').value;
         const resultDiv = document.getElementById('result');
-        
-        if (students[studentId]) {
-            const student = students[studentId];
+        let student;
+
+        if (searchType === 'id') {
+            student = students[searchValue];
+        } else if (searchType === 'mobile') {
+            student = Object.values(students).find(s => s.mobile === searchValue);
+        }
+
+        if (student) {
             resultDiv.innerHTML = `<strong>Name:</strong> ${student.name}<br><strong>Mobile:</strong> ${student.mobile}`;
         } else {
-            resultDiv.innerHTML = "Student ID not found.";
+            resultDiv.innerHTML = "Student not found.";
         }
     });
 </script>
