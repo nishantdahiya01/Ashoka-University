@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Details</title>
+    <title>Ashoka University Student Records</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,53 +17,57 @@
             padding: 10px 0;
             text-align: center;
         }
-        .result {
+        section {
             margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #fff;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #999;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Student Details</h1>
+    <h1>Ashoka University Student Records</h1>
 </header>
 
-<div class="result" id="result"></div>
+<section>
+    <h2>Record Management</h2>
+    <form id="student-form" action="result.html" method="GET">
+        <label for="search-type">Search by:</label>
+        <select id="search-type" name="search-type">
+            <option value="id">Student ID</option>
+            <option value="mobile">Mobile Number</option>
+        </select><br><br>
+        
+        <label for="search-value">Enter:</label>
+        <input type="text" id="search-value" name="search-value" required><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</section>
+
+<footer>
+    <p>&copy; 2024 University Student Records System</p>
+</footer>
 
 <script>
-    const students = {
-        1: { name: "Nishant", mobile: "8816868268" },
-        2: { name: "Baby", mobile: "234-567-8901" },
-        3: { name: "Jivesh", mobile: "345-678-9012" },
-        4: { name: "Ritu", mobile: "456-789-0123" },
-        5: { name: "Nisha", mobile: "567-890-1234" },
-        6: { name: "Sikender", mobile: "678-901-2345" },
-        7: { name: "Ennu", mobile: "789-012-3456" }
-    };
+    // Change placeholder based on selected search type
+    document.getElementById('search-type').addEventListener('change', function() {
+        const searchValueInput = document.getElementById('search-value');
+        if (this.value === 'id') {
+            searchValueInput.placeholder = "Enter Student ID";
+        } else {
+            searchValueInput.placeholder = "Enter Mobile Number";
+        }
+    });
 
-    // Get URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchType = urlParams.get('search-type');
-    const searchValue = urlParams.get('search-value');
-    let student;
-
-    // Find student based on search type
-    if (searchType === 'id') {
-        student = students[searchValue];
-    } else if (searchType === 'mobile') {
-        student = Object.values(students).find(s => s.mobile === searchValue);
-    }
-
-    // Display result
-    const resultDiv = document.getElementById('result');
-    if (student) {
-        resultDiv.innerHTML = `<strong>Name:</strong> ${student.name}<br><strong>Mobile:</strong> ${student.mobile}`;
-    } else {
-        resultDiv.innerHTML = "Student not found.";
-    }
+    // Initialize placeholder on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('search-value').placeholder = "Enter Student ID";
+    });
 </script>
 
 </body>
