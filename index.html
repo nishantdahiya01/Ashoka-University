@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>uUniversity Student Records</title>
+    <title>Ashoka University Student Records</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,29 +29,58 @@
             text-align: center;
             color: #999;
         }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1> Ashoka University Student Records</h1>
+    <h1>Ashoka University Student Records</h1>
     <p>Track and manage student information efficiently</p>
 </header>
 
 <section>
     <h2>Record Management</h2>
-    <form action="/submit-student-data" method="POST">
-        
+    <form id="student-form">
         <label for="student-id">Student ID:</label>
         <input type="text" id="student-id" name="student-id" required><br><br>
-
         <input type="submit" value="Submit">
     </form>
+    <div class="result" id="result"></div>
 </section>
 
 <footer>
     <p>&copy; 2024 University Student Records System</p>
 </footer>
+
+<script>
+    const students = {
+        1: { name: "Amit", mobile: "123-456-7890" },
+        2: { name: "Sumit", mobile: "234-567-8901" },
+        3: { name: "Chirag", mobile: "345-678-9012" },
+        4: { name: "Ritu", mobile: "456-789-0123" },
+        5: { name: "Nisha", mobile: "567-890-1234" },
+        6: { name: "Sikender", mobile: "678-901-2345" }
+    };
+
+    document.getElementById('student-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const studentId = document.getElementById('student-id').value;
+        const resultDiv = document.getElementById('result');
+        
+        if (students[studentId]) {
+            const student = students[studentId];
+            resultDiv.innerHTML = `<strong>Name:</strong> ${student.name}<br><strong>Mobile:</strong> ${student.mobile}`;
+        } else {
+            resultDiv.innerHTML = "Student ID not found.";
+        }
+    });
+</script>
 
 </body>
 </html>
