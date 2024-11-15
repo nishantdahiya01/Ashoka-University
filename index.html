@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashoka University Student Records</title>
+    <title>Student Details</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,14 +17,6 @@
             padding: 10px 0;
             text-align: center;
         }
-        section {
-            margin-top: 20px;
-        }
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            color: #999;
-        }
         .result {
             margin-top: 20px;
             padding: 10px;
@@ -36,29 +28,10 @@
 <body>
 
 <header>
-    <h1>Ashoka University Student Records</h1>
+    <h1>Student Details</h1>
 </header>
 
-<section>
-    <h2>Record Management</h2>
-    <form id="student-form">
-        <label for="search-type">Search by:</label>
-        <select id="search-type">
-            <option value="id">Student ID</option>
-            <option value="mobile">Mobile Number</option>
-        </select><br><br>
-        
-        <label for="search-value">Enter:</label>
-        <input type="text" id="search-value" name="search-value" required><br><br>
-        
-        <input type="submit" value="Submit">
-    </form>
-    <div class="result" id="result"></div>
-</section>
-
-<footer>
-    <p>&copy; 2024 University Student Records System</p>
-</footer>
+<div class="result" id="result"></div>
 
 <script>
     const students = {
@@ -71,40 +44,26 @@
         7: { name: "Ennu", mobile: "789-012-3456" }
     };
 
-    document.getElementById('student-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const searchType = document.getElementById('search-type').value;
-        const searchValue = document.getElementById('search-value').value;
-        const resultDiv = document.getElementById('result');
-        let student;
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchType = urlParams.get('search-type');
+    const searchValue = urlParams.get('search-value');
+    let student;
 
-        if (searchType === 'id') {
-            student = students[searchValue];
-        } else if (searchType === 'mobile') {
-            student = Object.values(students).find(s => s.mobile === searchValue);
-        }
+    // Find student based on search type
+    if (searchType === 'id') {
+        student = students[searchValue];
+    } else if (searchType === 'mobile') {
+        student = Object.values(students).find(s => s.mobile === searchValue);
+    }
 
-        if (student) {
-            resultDiv.innerHTML = `<strong>Name:</strong> ${student.name}<br><strong>Mobile:</strong> ${student.mobile}`;
-        } else {
-            resultDiv.innerHTML = "Student not found.";
-        }
-    });
-
-    // Change placeholder based on selected search type
-    document.getElementById('search-type').addEventListener('change', function() {
-        const searchValueInput = document.getElementById('search-value');
-        if (this.value === 'id') {
-            searchValueInput.placeholder = "Enter Student ID";
-        } else {
-            searchValueInput.placeholder = "Enter Mobile Number";
-        }
-    });
-
-    // Initialize placeholder on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('search-value').placeholder = "Enter Student ID";
-    });
+    // Display result
+    const resultDiv = document.getElementById('result');
+    if (student) {
+        resultDiv.innerHTML = `<strong>Name:</strong> ${student.name}<br><strong>Mobile:</strong> ${student.mobile}`;
+    } else {
+        resultDiv.innerHTML = "Student not found.";
+    }
 </script>
 
 </body>
